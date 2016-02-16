@@ -533,7 +533,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
             }
 
             if (data) {
-                [formData appendPartWithFormData:data name:[pair.field description]];
+                [formData appendPartWithFormData:data name:[pair.field description] mimeType:nil];
             }
         }
     }
@@ -957,11 +957,16 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
 
 - (void)appendPartWithFormData:(NSData *)data
                           name:(NSString *)name
+                      mimeType:(NSString *)mimeType
 {
     NSParameterAssert(name);
 
     NSMutableDictionary *mutableHeaders = [NSMutableDictionary dictionary];
     [mutableHeaders setValue:[NSString stringWithFormat:@"form-data; name=\"%@\"", name] forKey:@"Content-Disposition"];
+
+    if (mimeType != nil) {
+        [mutableHeaders setValue:mimeType forKey:@"Content-Type"];
+    }
 
     [self appendPartWithHeaders:mutableHeaders body:data];
 }

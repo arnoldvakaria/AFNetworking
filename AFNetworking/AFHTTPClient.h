@@ -615,8 +615,8 @@ extern NSTimeInterval const kAFUploadStream3GSuggestedDelay;
  */
 
 - (void)appendPartWithFormData:(NSData *)data
-                          name:(NSString *)name;
-
+                          name:(NSString *)name
+                      mimeType:(NSString *)mimeType;
 
 /**
  Appends HTTP headers, followed by the encoded data and the multipart form boundary.
